@@ -1,0 +1,30 @@
+% Define individuals
+formulas(assumptions).
+    Carly != James.
+    Carly != Kate.
+    Carly != Natalie.
+    Carly != Sammy.
+    James != Kate.
+    James != Natalie.
+    James != Sammy.
+    Kate != Natalie.
+    Kate != Sammy.
+    Natalie != Sammy.
+
+    % Define taller relationship as asymmetric and irreflexive
+    all x ( -taller(x, x) ). % No one is taller than themselves
+    all x all y ( taller(x, y) -> -taller(y, x) ). % If x is taller than y, y cannot be taller than x
+
+    % Problem constraints
+    taller(James, Kate).
+    taller(James, Carly).
+    taller(Kate, Sammy).
+    taller(Kate, Natalie).
+    taller(Sammy, Natalie).
+    taller(Carly, Sammy).
+end_of_list.
+
+formulas(goals).
+    % Find the shortest person
+    exists x ( all y ( y != x -> taller(y, x) ) ). % x is the shortest if everyone else is taller than x
+end_of_list.
